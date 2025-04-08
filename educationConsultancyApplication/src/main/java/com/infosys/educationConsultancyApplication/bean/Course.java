@@ -57,7 +57,5 @@ public class Course {
 	public String toString() {
 		return "Course [courseId=" + courseId + ", courseName=" + courseName + ", hours=" + hours + ", price=" + price
 				+ ", technology=" + technology + "]";
-	}
-	
-	
+	}	
 }

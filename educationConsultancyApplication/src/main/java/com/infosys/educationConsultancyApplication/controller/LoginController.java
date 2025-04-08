@@ -1,10 +1,10 @@
 package com.infosys.educationConsultancyApplication.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +20,7 @@ import com.infosys.educationConsultancyApplication.service.EduconUserService;
 
 @RestController
 @RequestMapping("/edu-con/")
-@CrossOrigin(origins = "http://localhost:3636")
+@CrossOrigin(origins = "http://localhost:3000")
 public class LoginController {
 	@Autowired
 	private EduconUserService service;

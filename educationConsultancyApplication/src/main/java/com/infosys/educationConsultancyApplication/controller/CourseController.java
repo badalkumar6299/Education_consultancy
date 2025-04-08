@@ -1,6 +1,7 @@
 package com.infosys.educationConsultancyApplication.controller;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,7 +18,7 @@ import com.infosys.educationConsultancyApplication.dao.CourseDao;
 
 @RestController
 @RequestMapping("/edu-con/")
-@CrossOrigin(origins = "http://localhost:3636")
+@CrossOrigin(origins = "http://localhost:3000")
 public class CourseController {
 	@Autowired
 	private CourseDao courseDao;

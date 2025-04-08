@@ -42,14 +42,15 @@ public class CourseDaoImpl implements CourseDao {
 	}
 
 	@Override
-	public Long generateNewCourseId() {
-		Long id=repository.getMaxCourseId();
-		if(id==null)
-			id=100001L;
-		else
-			id++;
-		
-		return id;
-	}
+public Long generateNewCourseId() {
+    Long id = repository.getMaxCourseId();
+    if (id == null || id < 999)
+        id = 1000L;
+    else
+        id++;
+
+    return id;
+}
+
 
 }

@@ -50,4 +50,14 @@ public class CourseSubscriptionDaoImpl implements CourseSubscriptionDao {
 	    return newId;
 	}
 
+	@Override
+	public String getStatusBySubscriptionId(String subscriptionId) {
+        return repository.getStatusBySubscriptionId(subscriptionId);
+    }
+
+    @Override
+    public String getStatusByCourseIdStudentId(Long courseId, String studentId) {
+        return repository.getStatusByCourseIdAndStudentId(courseId, studentId);
+    }
+
 }

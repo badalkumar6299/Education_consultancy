@@ -18,7 +18,7 @@ import com.infosys.educationConsultancyApplication.service.EduconUserService;
 
 @RestController
 @RequestMapping("/edu-con/")
-@CrossOrigin(origins = "http://localhost:3636")
+@CrossOrigin(origins = "http://localhost:3000")
 public class StudentController {
 	@Autowired
 	private StudentDao studentDao;

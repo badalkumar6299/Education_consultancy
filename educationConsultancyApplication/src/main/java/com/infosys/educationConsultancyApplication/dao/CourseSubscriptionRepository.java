@@ -14,7 +14,13 @@ public interface CourseSubscriptionRepository extends JpaRepository<CourseSubscr
 
 	@Query("select a from CourseSubscription a where status='true'")
 	public List<CourseSubscription> getCurrentSubscriptions();
+
 	@Query("select a from CourseSubscription a where studentId=?1")
 	public List<CourseSubscription>getAllSubscriptionsByStudentId(String studentId );
+ 
+	@Query("select status from CourseSubscription a where subscriptionId=?1")
+	public String getStatusBySubscriptionId(String subscriptionId);
 
+	@Query("select status from CourseSubscription where courseId=?1 and studentId=?2")
+	public String getStatusByCourseIdAndStudentId(Long courseId, String studentId);
 }

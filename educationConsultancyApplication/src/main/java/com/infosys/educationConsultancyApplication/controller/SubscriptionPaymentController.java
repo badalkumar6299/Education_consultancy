@@ -13,15 +13,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.infosys.educationConsultancyApplication.bean.CourseSubscription;
+import com.infosys.educationConsultancyApplication.bean.Payment;
 import com.infosys.educationConsultancyApplication.bean.Student;
 import com.infosys.educationConsultancyApplication.dao.CourseSubscriptionDao;
+import com.infosys.educationConsultancyApplication.dao.PaymentDao;
 import com.infosys.educationConsultancyApplication.dao.StudentDao;
 import com.infosys.educationConsultancyApplication.service.EduconUserService;
 import com.infosys.educationConsultancyApplication.service.SubscriptionService;
 
 @RestController
 @RequestMapping("/edu-con/")
-@CrossOrigin(origins = "http://localhost:3636")
+@CrossOrigin(origins = "http://localhost:3000")
 public class SubscriptionPaymentController {
 	@Autowired
 	private CourseSubscriptionDao courseSubscriptionDao;
@@ -35,6 +37,9 @@ public class SubscriptionPaymentController {
 	@Autowired
 	private SubscriptionService subService;
 	
+	@Autowired
+	private PaymentDao paymentDao;
+	
 	@PostMapping("/subscription")
 	public void save(@RequestBody CourseSubscription subscription) {
 		String userId=service.getUserId();
@@ -47,12 +52,6 @@ public class SubscriptionPaymentController {
 	}
 	@PutMapping("/subscription")
 	public void update(@RequestBody CourseSubscription subscription) {
-		String userId=service.getUserId();
-		Student student=studentDao.getStudentByUserName(userId);
-		subscription.setStudentId(student.getRegistrationNum());
-		String endDate=subService.generateEndDate(subscription.getSubscriptionDate());
-		subscription.setEndDate(endDate);
-		subscription.setStatus("active");
 		courseSubscriptionDao.save(subscription);
 	}
 	@GetMapping("/subscription/{id}")
@@ -81,5 +80,49 @@ public class SubscriptionPaymentController {
     public String generateSubscriptionId() {
 		return courseSubscriptionDao.generateSubscriptionId();
 	}
+
+	@GetMapping("/subscription-id/id")
+	public String getStatusBySubscriptionId(@PathVariable String id) {
+        return courseSubscriptionDao.getStatusBySubscriptionId(id);
+    }
 	
+	@GetMapping("/sub-course/{id}")
+	public String getStatusByCourseIdStudentId(@PathVariable Long id) {
+		String userId=service.getUserId();
+		Student student=studentDao.getStudentByUserName(userId);
+        return courseSubscriptionDao.getStatusByCourseIdStudentId(id, student.getRegistrationNum());
+    }
+	@PostMapping("/payment")
+    public void savePayment(@RequestBody Payment payment) {
+    	String userId=service.getUserId();
+    	Student student=studentDao.getStudentByUserName(userId);
+    	payment.setstudentId(student.getRegistrationNum());
+    	paymentDao.save(payment);
+    }
+    
+    @GetMapping("/payment/{id}")
+    public Payment getPaymentByBill(@PathVariable String id) {
+    	return paymentDao.getPaymentByBill(id);
+    }
+    @GetMapping("/payment")
+    public List<Payment>getAllBills(){
+    	return paymentDao.getAllBills();
+    }
+    
+    @GetMapping("/payment-sub/{id}")
+    List<Payment>getBillBySubscriptionId(@PathVariable String id){
+    	return paymentDao.getBillBySubscriptionId(id);
+    }
+    
+    
+    @GetMapping("/payment-sub")
+    	public List<Payment> getBillByStudentId(){
+    		String userId=service.getUserId();
+    		Student student=studentDao.getStudentByUserName(userId);
+    		return paymentDao.getBillByStudentId(student.getRegistrationNum());
+    	}
+    	@GetMapping("/payment-id")
+    	public String generateBillNumber() {
+    		return paymentDao.generateBillNumber();
+    	}
 }

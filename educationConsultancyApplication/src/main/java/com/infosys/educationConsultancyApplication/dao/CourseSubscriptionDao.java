@@ -11,5 +11,7 @@ public interface CourseSubscriptionDao {
 	    public List<CourseSubscription> getCurrentSubscriptions();
 	    public List<CourseSubscription> getAllSubscriptionsByStudent(String id);
 	    public String generateSubscriptionId();
+		public String getStatusBySubscriptionId(Long subscriptionId);
+		public String getStatusByCourseIdStudentId(Long courseId, String studentId);
 
 }
